@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>js/main.js</file>
+    </qresource>
+    <qresource prefix="/MyProcess">
+        <file>js/myProcess/gui.js</file>
+        <file>js/myProcess/model.js</file>
+        <file>js/myProcess/process.js</file>
+    </qresource>
+</RCC>
