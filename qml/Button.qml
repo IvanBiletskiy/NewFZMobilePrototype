@@ -10,6 +10,7 @@ Rectangle {
     height: 40
     width: 80
 
+
     Text {
         id: text
         color: "#000000"

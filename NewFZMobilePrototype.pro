@@ -29,4 +29,5 @@ DISTFILES += \
     js/DefaultWindows/listWindow.js \
     js/DefaultWindows/window.js \
     js/gui.js \
-    qml/Menu.qml
+    qml/Menu.qml \
+    qml/CustomDelegate.qml

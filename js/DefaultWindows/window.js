@@ -15,6 +15,7 @@ module = function Window(){
     }
 
     function emitSignal(signalName, param) {
+        // console.log("  emitting signal ["+signalName+"]");
         for (var i = 0; i < signals.length; i++) {
             var currentSignal = signals[i];
             if (currentSignal.name === signalName) {
