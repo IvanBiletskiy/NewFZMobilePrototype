@@ -17,7 +17,6 @@ module = {
     },
     MenuWindow: function(){
         GUI.Windows.DefaultListWindow.apply(this);
-        this.menu.model.append({lineName: "line 4"});
         var nextPageButton = GUI.QmlComponents.buttonComponent.createObject(this.qml, {text: ">"});
         nextPageButton.anchors.bottom = this.qml.bottom;
         nextPageButton.anchors.right = this.qml.right;
@@ -27,7 +26,7 @@ module = {
         ]);
     },
     CustomMenuWindow: function(){
-        GUI.Windows.DefaultListWindow.apply(this);
-        this.menu.delegate = GUI.QmlComponents.customDelegateComponent;
+        GUI.Windows.DefaultListWindow.apply(this); //Окно с ListView и каким-то дефолтным делегатом
+        this.menu.delegate = Qt.createComponent("CustomDelegate.qml"); //подменяем делегат
     }
 };
