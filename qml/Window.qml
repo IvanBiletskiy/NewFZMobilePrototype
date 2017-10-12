@@ -4,5 +4,9 @@ Item  {
     id: window
     anchors.fill: parent
     visible: true
+    property alias header: header
+    Header{
+        id: header
+    }
 }
 

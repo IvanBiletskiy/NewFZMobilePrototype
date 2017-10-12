@@ -30,4 +30,6 @@ DISTFILES += \
     js/DefaultWindows/window.js \
     js/gui.js \
     qml/Menu.qml \
-    qml/CustomDelegate.qml
+    qml/CustomDelegate.qml \
+    qml/Line.qml \
+    qml/Header.qml

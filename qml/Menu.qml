@@ -4,7 +4,6 @@ Rectangle {
     id: menu
     property alias model: menuModel
     property alias delegate: menuView.delegate
-    anchors.top:parent.top
     anchors.left: parent.left
     anchors.right: parent.right
     border.width: 1

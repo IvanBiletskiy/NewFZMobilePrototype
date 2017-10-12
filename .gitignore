@@ -45,3 +45,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+Makefile
+Makefile
+*.Debug
+Makefile.Release
+*.user
+*.obj
+release/NewFZMobilePrototype.exe

@@ -2,6 +2,11 @@ var module = null;
 globalRequire("windowManager");
 globalRequire("gui");
 
+var global = {
+    appInfo: "FZMobile 0.0.1-T",
+    userInfo: ""
+}
+
 function start(){
     var process = require("myProcess/process");
     process.start();

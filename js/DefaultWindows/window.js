@@ -73,9 +73,14 @@ module = function Window(){
         [returnButton.clicked, "returnSignal"]
     ]);
 
+    var header = window.header;
+    header.appInfo = global.appInfo;
+    header.userInfo = global.userInfo;
+
     
     //object interface
     this.qml = window;
+    this.header = header;
     this.returnButton = returnButton;
     this.show = function(){
         console.log("window showed");
