@@ -32,4 +32,5 @@ DISTFILES += \
     qml/Menu.qml \
     qml/CustomDelegate.qml \
     qml/Line.qml \
-    qml/Header.qml
+    qml/Header.qml \
+    qml/MessageBox.qml

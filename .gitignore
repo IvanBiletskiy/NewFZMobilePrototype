@@ -52,3 +52,5 @@ Makefile.Release
 *.user
 *.obj
 release/NewFZMobilePrototype.exe
+debug/
+NewFZMobilePrototype.pro.user.3624ef9

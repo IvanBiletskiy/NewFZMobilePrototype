@@ -4,7 +4,7 @@ Rectangle {
     id: pageCommonHeader
     width: parent.width
     height: 15
-    z: 999
+    z: 99
     color: "blue"
     border.width: 1
     property alias appInfo: appInfo.text
