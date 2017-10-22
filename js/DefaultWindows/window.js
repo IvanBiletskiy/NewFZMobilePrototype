@@ -50,7 +50,8 @@ module = function Window(){
      *      ...
      * ]
      */
-    function bindSignals(signalConnections){
+        //TODO. REMAKE FOR PARAMETRIZED QML SIGNALS
+     function bindSignals(signalConnections){
         for (var i = 0; i < signalConnections.length; i++) {
             var signalConnection = signalConnections[i],
                 qmlSignal = signalConnection[0],

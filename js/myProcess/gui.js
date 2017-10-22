@@ -9,7 +9,7 @@ module = {
         var menu = this.menu;
         this.addSignal("documentClicked");
         this.bindSignals([
-            [menu.lineClicked, "documentClicked", menu]
+            [menu.lineClicked, "documentClicked"]
         ]);
     }
 };
