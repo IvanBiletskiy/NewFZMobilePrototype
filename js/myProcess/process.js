@@ -3,18 +3,13 @@ module = (function(){
     var model = require("myProcess/model");
     windowManager.setProcess("myProcess");
 
-    function showFirstWindow(){
-        var window = windowManager.getFirstWindow();
-        window.connect([
-                           ["returnSignal", returnSlot1],
-                           ["returnSignal", returnSlot2],
-                           ["nextPageSignal", showMenuWindow]
-                       ]);
-        function returnSlot1(){
-            console.log("returnSlot1");
-        };
-        function returnSlot2(){
-            console.log("returnSlot2");
+    function showDocumentListWindow(){
+        var window = windowManager.get();
+        function showNextPage(){
+            var documentList = model.getDocumentList();
+            var nextPageMenuLines = [];
+
+            showMenuWindow(nextPageMenuLines);
         }
     }
 
@@ -25,7 +20,7 @@ module = (function(){
                        ])
     }
 
-    function showMenuWindow(){
+    function showMenuWindow(menuLines){
         var window = windowManager.getMenuWindow();
         window.connect([
                            ["returnSignal", showFirstWindow],

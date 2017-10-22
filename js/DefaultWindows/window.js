@@ -62,6 +62,12 @@ module = function Window(){
         }
     }
 
+    function showError(errorMessage) {
+        this.errorBox.show(errorMessage);
+    }
+    function hideError(errorMessage) {
+        this.errorBox.hide();
+    }
 
     clearSignals();
     var window = GUI.QmlComponents.windowComponent.createObject(canvas);
@@ -95,4 +101,6 @@ module = function Window(){
     this.bindSignals = bindSignals;
     this.clearSignals = clearSignals;  
     this.signals = signals;  
+    this.showError = showError;
+    this.hideError = hideError;
 }

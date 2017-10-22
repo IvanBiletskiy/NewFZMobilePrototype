@@ -42,22 +42,21 @@ module = (function() {
             }
         },
         getLagerInfo: function(lagerId) {
-            if (lagerId === 666) {
-                return "Delicious beer in the world!"
-            }
+            var lagerInfo;
             switch (lagerId) {
                 case 666:
-                    return "Delicious beer in the world!"
+                    lagerInfo = "Delicious beer in the world!"
                 case 1:
-                    return "This fish smells bad..."
+                    lagerInfo = "This fish smells bad..."
                 case 123:
-                    return "This milk made by cow"
+                    lagerInfo = "This milk made by cow"
                 default:
-                    return {
+                    lagerInfo = {
                         hasError: true,
                         errorMessage: "INFO NOT FOUND"
                     }
             };
+            return lagerInfo;
         }
     };
 

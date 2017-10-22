@@ -4,6 +4,7 @@ Rectangle {
     id: menu
     property alias model: menuModel
     property alias delegate: menuView.delegate
+    signal lineClicked(int lineNumber)
     anchors.left: parent.left
     anchors.right: parent.right
     border.width: 1
@@ -24,6 +25,13 @@ Rectangle {
                 id: text
                 text: lineName
                 anchors.horizontalCenter: parent.horizontalCenter
+            }
+            MouseArea {
+                id: mouseArray
+                anchors.fill: parent
+                onClicked: {
+                    lineClicked(index);
+                }
             }
         }
     }
