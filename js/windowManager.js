@@ -18,7 +18,7 @@ var windowManager = (function (){
         delete windowsCache[windowName];
     }
 
-    function getWindowByConstructorName(constructorName){
+    function getWindowByConstructorName(constructorName, params){
         console.log("in getWindowByConstructorName("+constructorName+")");
         for (var savedWindowName in windowsCache) {
             if (windowsCache.hasOwnProperty(savedWindowName)) {
@@ -30,21 +30,35 @@ var windowManager = (function (){
                     }
                     currentWindow = window;
                     window.clearSignals();
+                    window.setData.apply(null, params);
                     window.show();
                     return window;
                 }
             }
         }
         //if window not in cache - create new window
-        return createNewWindow(constructorName);
+        return createNewWindow(constructorName, params);
     }
 
-    function createNewWindow(constructorName){
+    function createNewWindow(constructorName, params){
         console.log("creating new page "+constructorName);
         if (currentWindow) {
             currentWindow.hide();
         }
-        currentWindow = new processGui[constructorName]();
+
+        var RequiredConstructor = processGui[constructorName];
+
+        var createNewRequiredWindow = (function() {
+            function F(args) {
+                return RequiredConstructor.apply(this, args);
+            }
+            F.prototype = RequiredConstructor.prototype;
+        
+            return function() {
+                return new F(arguments);
+            }
+        })();
+        currentWindow = createNewRequiredWindow.apply(null, params);
         addToCache(currentWindow, constructorName);
         console.log("after addToCache, cache:");
         consoleLogCache();
@@ -73,7 +87,8 @@ var windowManager = (function (){
 
     function createWindowGetter(constructorName){
         return function(){
-            return getWindowByConstructorName(constructorName);
+            var params = [].slice.call(arguments); 
+            return getWindowByConstructorName(constructorName, params);
         }
     }
 

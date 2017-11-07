@@ -1,3 +1,4 @@
+console.log(typeof Function.prototype.bind);
 var module = null;
 globalRequire("windowManager");
 globalRequire("gui");

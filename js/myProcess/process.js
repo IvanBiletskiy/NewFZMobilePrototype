@@ -4,48 +4,37 @@ module = (function(){
     windowManager.setProcess("myProcess");
 
     function showDocumentListWindow(){
-        var window = windowManager.get();
-        function showNextPage(){
-            var documentList = model.getDocumentList();
-            var nextPageMenuLines = [];
-
-            showMenuWindow(nextPageMenuLines);
-        }
-    }
-
-    function showSecondWindow(){
-        var window = windowManager.getSecondWindow();
+        var documentList = model.getDocumentList();
+        var window = windowManager.getDocumentListWindow(documentList);
         window.connect([
-                           ["returnSignal", showFirstWindow]
-                       ])
+            ["documentClicked", documentClickedHandler]
+        ])
+
+        function documentClickedHandler(documentId){
+            showDocumentWindow(documentId);
+        }
+
     }
 
-    function showMenuWindow(menuLines){
-        var window = windowManager.getMenuWindow();
+    function showDocumentWindow(documentId) {
+        var document = model.getDocument(documentId);
+        var window = windowManager.getDocumentWindow(document);
         window.connect([
-                           ["returnSignal", showFirstWindow],
-                           ["nextPageSignal", showCustomMenuPage]
-                       ])
+            ["returnSignal", showDocumentListWindow],
+            ["lagerClicked", lagerClickedHandler]
+        ])
+
+        function lagerClickedHandler(lagerId){
+            console.log("CLICKED Lager "+lagerId);
+            window.showError("Lager "+lagerId+" info not found");
+        }
     }
 
-    function showCustomMenuPage(){
-        try{
-            var window = windowManager.getCustomMenuWindow();
-            window.connect([
-                               ["returnSignal", showMenuWindow]
-                           ]);
-        }
-        catch(err){
-            showObject(err, "err");
-            console.log(err.stack);
-        }
-    }
 
 
     return {
         start: function(){
-            // showDocumentListWindow();
-            showFirstWindow();
+             showDocumentListWindow();
         }
     }
 })();

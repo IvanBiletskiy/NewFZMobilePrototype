@@ -14,7 +14,7 @@ Item  {
         onClicked: {
             console.log("Message box clicked");
         }
-        visible: true
+        visible: false
     }
 }
 

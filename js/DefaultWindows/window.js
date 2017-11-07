@@ -13,15 +13,20 @@ module = function Window(){
             signal.slots = []
         }
     }
-
-    function emitSignal(signalName, param) {
-        // console.log("  emitting signal ["+signalName+"]");
+ /**
+  * 
+  * @param {string} signalName - имя сигнала страницы
+  * @param {Array} params - массив параметров сигнала 
+  */
+    function emitSignal(signalName, params) {
+        console.log("  emitting signal ["+signalName+"] with params = "+JSON.stringify(params));
+        showObject(signals, "signals", 3);
         for (var i = 0; i < signals.length; i++) {
             var currentSignal = signals[i];
             if (currentSignal.name === signalName) {
                 var slots = currentSignal.slots;
                 for (var slotIndex = 0; slotIndex < slots.length; slotIndex++) {
-                    slots[slotIndex](param);
+                    slots[slotIndex].apply(null, params);
                 }
             }
         }
@@ -45,10 +50,13 @@ module = function Window(){
      * Связывает сигналы элементов QML с сигналами окна
      * @param {Array} signalConnections - пары сигналов вида
      * [
-     *      [qmlObject.signal, "windowSignalName", windowSignalParam{}],
-     *      [button15.clicked, "someButtonClicked", {buttonId: 15}],
+     *      [qmlObject.signal, "windowSignalName", windowSignalOwnParamsArray],
+     *      [button15.clicked, "someButtonClicked", [15]]
      *      ...
      * ]
+     * 
+     * windowSignalOwnParamsArray - массив собственны параметров сигнала окна.
+     * Список аргументов внешнего сигнала окна формируется по принципу [собственные параметры, параметры QML-сигнала] 
      */
         //TODO. REMAKE FOR PARAMETRIZED QML SIGNALS
      function bindSignals(signalConnections){
@@ -56,18 +64,22 @@ module = function Window(){
             var signalConnection = signalConnections[i],
                 qmlSignal = signalConnection[0],
                 windowSignalName = signalConnection[1],
-                windowSignalParam = signalConnection[2];
+                windowSignalOwnParamsArray = signalConnection[2] || [];
             qmlSignal.connect(function(){
-                emitSignal(windowSignalName, windowSignalParam);
+                var qmlSignalParams = [].slice.call(arguments); //получаем список параметров qml-сигнала в виде массива
+                var windowSignalParams = windowSignalOwnParamsArray.concat(qmlSignalParams);
+                emitSignal(windowSignalName, windowSignalParams);
             })
         }
     }
 
+    function setData(){};
+
     function showError(errorMessage) {
-        this.errorBox.show(errorMessage);
+        this.qml.errorBox.show(errorMessage);
     }
     function hideError(errorMessage) {
-        this.errorBox.hide();
+        this.qml.errorBox.hide();
     }
 
     clearSignals();
@@ -100,6 +112,7 @@ module = function Window(){
     this.connect = connect;
     this.addSignal = addSignal;
     this.bindSignals = bindSignals;
+    this.emitSignal = emitSignal;
     this.clearSignals = clearSignals;  
     this.signals = signals;  
     this.showError = showError;

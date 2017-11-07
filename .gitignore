@@ -54,3 +54,4 @@ Makefile.Release
 release/NewFZMobilePrototype.exe
 debug/
 NewFZMobilePrototype.pro.user.3624ef9
+vc90.pdb
