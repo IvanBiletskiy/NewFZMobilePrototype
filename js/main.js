@@ -1,4 +1,3 @@
-console.log(typeof Function.prototype.bind);
 var module = null;
 globalRequire("windowManager");
 globalRequire("gui");
@@ -81,3 +80,43 @@ function globalRequire(moduleName){
     }
 }
 
+
+// полифилл Function.prototype.bind из ECMAScript 5
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function(oThis) {
+    if (typeof this !== 'function') {
+      // ближайший аналог внутренней функции
+      // IsCallable в ECMAScript 5
+      throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+    }
+
+    var aArgs = Array.prototype.slice.call(arguments, 1),
+        fToBind = this,
+        FNOP    = function() {},
+        fBound  = function() {
+          return fToBind.apply(this instanceof FNOP && oThis
+                 ? this
+                 : oThis,
+                 aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+
+    FNOP.prototype = this.prototype;
+    fBound.prototype = new FNOP();
+
+    return fBound;
+  };
+}
+
+function O(){
+    this.x = 12;
+    function f1(){
+        console.log(this.x);
+    }
+    this.getFunc = function(){
+        return f1.bind(this);
+    }
+}
+
+var o1 = new O();
+var f1 = o1.getFunc();
+f1();

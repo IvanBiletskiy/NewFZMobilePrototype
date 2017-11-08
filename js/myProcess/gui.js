@@ -34,8 +34,8 @@ module = {
 
     DocumentWindow: function(document){
         var menuItemsNames = getLinesNames(document);
-
-        GUI.Windows.DefaultListWindow.call(this, menuItemsNames);
+        var title = getTitle(document);
+        GUI.Windows.DefaultListWithTitleWindow.call(this, menuItemsNames, title);
         this.addSignal("lagerClicked");
 
         var that = this; //сохраняем контекст this.emitSignal, чтобы тот не потерялся
@@ -45,6 +45,14 @@ module = {
         }
         this.menu.lineClicked.connect(menuClickHandler);
 
+        var superChangeData = this.changeData;
+        this.changeData = function(document){
+            var linesNames = getLinesNames(document);
+            var title = getTitle(document);
+            superChangeData.call(this, linesNames, title);
+        }
+
+        
         function getLinesNames(document){
             var linesNames = [];
             for (var i = 0; i < document.lines.length; i++) {
@@ -54,10 +62,11 @@ module = {
             return linesNames;
         }
 
-        var superChangeData = this.changeData;
-        this.changeData = function(document){
-            var linesNames = getLinesNames(document);
-            superChangeData.call(this, linesNames);
+        function getTitle(document){
+            return "Document №" + document.id;
         }
-    }
+
+    },
+
+    LagerInfoWindow: function(){}
 };

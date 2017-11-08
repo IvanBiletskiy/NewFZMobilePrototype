@@ -19,12 +19,13 @@ Rectangle {
             id: wrapper
             anchors.right: parent.right
             anchors.left:parent.left
-            height: text.height
+            height: text.height + 10
             border.width: 1
             Text {
                 id: text
                 text: lineName
                 anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
             }
             MouseArea {
                 id: mouseArray
