@@ -96,12 +96,9 @@ module = function Window(){
 
     clearSignals();
     var window = GUI.QmlComponents.windowComponent.createObject(canvas);
-    var returnButton = GUI.QmlComponents.buttonComponent.createObject(window, {text: "<"});
-    returnButton.anchors.left = window.left;
-    returnButton.anchors.bottom = window.bottom;
     addSignal("returnSignal");
     bindSignals([
-        [returnButton.clicked, "returnSignal"]
+        [window.returnClicked, "returnSignal"]
     ]);
 
     var header = window.header;
@@ -112,9 +109,8 @@ module = function Window(){
     //object interface
     this.qml = window;
     this.header = header;
-    this.returnButton = returnButton;
+    this.returnButton = window.returnButton;
     this.show = function(){
-        console.log("window showed");
         window.visible = true;
     }
     this.hide = function(){

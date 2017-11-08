@@ -7,6 +7,7 @@ module = (function(){
         title.anchors.horizontalCenter = this.qml.horizontalCenter;
         title.color = "blue";
         title.font.bold = true;
+        title.z = this.header.z;
         this.title = title;        
         var titleLine = GUI.QmlComponents.lineComponent.createObject(this.qml);
         titleLine.anchors.top = title.bottom;
@@ -15,9 +16,6 @@ module = (function(){
 
         var superChangeData = this.changeData;
         this.changeData = function(menuLinesNames, titleText){
-            console.log("DefaultListWithTitleWindow changeData:")
-            showObject(menuLines, "menuLines");
-            showObject(titleText, "titleText");
             superChangeData(menuLinesNames);
             this.title.text = titleText;
         }
