@@ -30,7 +30,8 @@ var windowManager = (function (){
                     }
                     currentWindow = window;
                     window.clearSignals();
-                    window.setData.apply(null, params);
+                    console.log("... changing window data ...")
+                    window.changeData.apply(window, params);
                     window.show();
                     return window;
                 }

@@ -20,7 +20,7 @@ module = function Window(){
   */
     function emitSignal(signalName, params) {
         console.log("  emitting signal ["+signalName+"] with params = "+JSON.stringify(params));
-        showObject(signals, "signals", 3);
+        // showObject(signals, "signals", 3);
         for (var i = 0; i < signals.length; i++) {
             var currentSignal = signals[i];
             if (currentSignal.name === signalName) {
@@ -73,7 +73,19 @@ module = function Window(){
         }
     }
 
-    function setData(){};
+    function inheritSuperChangeData(newChangeData){
+        if(typeof this.changeData === "function"){
+            var superChangeData = this.changeData; 
+            this.changeData = function(data){
+                superChangeData(data);
+                newChangeData(data);
+            }           
+        }
+        else {
+            this.changeData=newChangeData;
+        }
+
+    }
 
     function showError(errorMessage) {
         this.qml.errorBox.show(errorMessage);
@@ -106,7 +118,6 @@ module = function Window(){
         window.visible = true;
     }
     this.hide = function(){
-        console.log("window hided");
         window.visible = false;
     }
     this.connect = connect;
@@ -117,4 +128,5 @@ module = function Window(){
     this.signals = signals;  
     this.showError = showError;
     this.hideError = hideError;
+    this.inheritSuperSetData = inheritSuperChangeData;
 }

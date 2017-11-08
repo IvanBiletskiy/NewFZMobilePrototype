@@ -5,11 +5,10 @@ module = (function(){
         menu.anchors.top = this.header.bottom;
         menu.anchors.bottom = this.returnButton.top;
         this.menu = menu;
-        setData(menuLines);
-        this.setData = setData;
+        this.changeData = setMenuLines;
+        setMenuLines(menuLines);
 
-        function setData(menuLinesArray) {
-            console.log("in setData. menuLinesArray = "+JSON.stringify(menuLinesArray));
+        function setMenuLines(menuLinesArray) {
             menu.model.clear();
             for (var i = 0; i < menuLinesArray.length; i++) {
                 var line = menuLinesArray[i];
