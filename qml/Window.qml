@@ -31,12 +31,10 @@ Item  {
         property bool lastVisible: visible
         property int lastZ: z
         Component.onCompleted: {
-            clicked.connect(emitReturnSignal());
+            clicked.connect(defaultModeSlot());
         }
-        function emitReturnSignal(){
-            if(!contextMenu.visible){
+        function defaultModeSlot(){
                 returnClicked();
-            }
         }
         function contextMenuModeSlot(){
             contextMenu.hide();
@@ -44,7 +42,7 @@ Item  {
             visible = lastVisible;
             z = lastZ;
             clicked.disconnect(contextMenuModeSlot);
-            clicked.connect(emitReturnSignal);
+            clicked.connect(defaultModeSlot);
         }
     }
 
@@ -60,14 +58,9 @@ Item  {
             returnButton.lastZ = returnButton.z;
             returnButton.z = contextMenu.z+1;
             contextMenu.show();
-            returnButton.clicked.disconnect(returnButton.emitReturnSignal);
+            returnButton.clicked.disconnect(returnButton.defaultModeSlot);
             returnButton.clicked.connect(returnButton.contextMenuModeSlot);
         }
     }
-
-    onReturnClicked: {
-        console.log("OLOLOOLOLOOLOLOLO")
-    }
-
 }
 
