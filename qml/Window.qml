@@ -27,11 +27,10 @@ Item  {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         text: "<"
-        onClicked: {}
         property bool lastVisible: visible
         property int lastZ: z
         Component.onCompleted: {
-            clicked.connect(defaultModeSlot());
+            clicked.connect(defaultModeSlot);
         }
         function defaultModeSlot(){
                 returnClicked();
