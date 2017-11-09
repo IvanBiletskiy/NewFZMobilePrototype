@@ -2,7 +2,7 @@ var GUI = {
     QmlComponents: {
         windowComponent: Qt.createComponent("Window.qml"),
         buttonComponent: Qt.createComponent("Button.qml"),
-        textComponent: Qt.createComponent("Text.qml"),
+        textBoxComponent: Qt.createComponent("TextBox.qml"),
         menuComponent: Qt.createComponent("Menu.qml"),
         lineComponent: Qt.createComponent("Line.qml")
     },

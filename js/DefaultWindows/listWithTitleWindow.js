@@ -1,7 +1,8 @@
 module = (function(){
     return function DefaultListWithTitleWindow(menuLines, titleText){
         GUI.Windows.DefaultListWindow.call(this, menuLines);
-        var title = GUI.QmlComponents.textComponent.createObject(this.qml);
+        var title = GUI.QmlComponents.textBoxComponent.createObject(this.qml);
+        title.isFullWidth = true;
         title.text = titleText;
         title.anchors.top = this.header.bottom;
         title.anchors.horizontalCenter = this.qml.horizontalCenter;
