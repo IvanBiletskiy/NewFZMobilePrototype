@@ -2,7 +2,8 @@ var windowManager = (function (){
     var managerInterface;
     var processGui;
     var windowsCache = {};
-    var currentWindow; //текущее отображаемое 
+    var currentWindow; //текущее отображаемое окно
+
     
     function setProcess(processName){
         var processGuiFilePath = "./"+processName+"/gui"
@@ -83,7 +84,20 @@ var windowManager = (function (){
                 managerInterface[windowGetterName] = createWindowGetter(constructorName);       
             }
         }
+        managerInterface.setProcessDefaultContextMenuItems = setProcessDefaultContextMenuItems;
         return managerInterface;
+    }
+
+    /**
+     * Функция дает возможность установить дефолтные пункты контекстного меню, которые будут отображаться во всех окнах процесса
+     * @param {Array} contextMenuItems 
+     * [
+     *      [itemString, windowSignalName, signalSlot],
+     *      ["Выйти в меню", "exitToMenuSignal", showMainMenuPage]
+     * ]
+     */
+    function setProcessDefaultContextMenuItems(contextMenuItems){
+        
     }
 
     function createWindowGetter(constructorName){

@@ -5,12 +5,13 @@ Item{
     anchors.fill: parent
     z: 999
     visible: false
+    signal lineClicked(int lineNumber)
 
     function show(){
-        component.visible = true;
+        visible = true;
     }
     function hide(){
-        component.visible = false;
+        visible = false;
     }
 
 
@@ -25,15 +26,52 @@ Item{
     MouseArea{
         id: blockedArea
         anchors.fill: parent
-        Rectangle{
-            id: contextMenuBox
-            anchors.centerIn: blockedArea
-            width: parent.width*0.8
-            height: parent.height*0.75
-            color: "white"
-            radius: 15
 
+        Rectangle {
+            id: contextMenu
+            property alias model: menuModel
+            property alias delegate: menuView.delegate
+            width: parent.width*0.75
+            height: parent.height*0.5
+            anchors.centerIn: parent
+            border.width: 1
+
+            ListModel{
+                id: menuModel
+            }
+
+            Component {
+                id: defaultDelegate
+                Rectangle {
+                    id: wrapper
+                    anchors.right: parent.right
+                    anchors.left:parent.left
+                    height: text.height + 10
+                    border.width: 1
+                    Text {
+                        id: text
+                        text: lineName
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    MouseArea {
+                        id: mouseArray
+                        anchors.fill: parent
+                        onClicked: {
+                            lineClicked(index);
+                        }
+                    }
+                }
+            }
+
+            ListView{
+                id: menuView
+                anchors.fill: parent
+                model: menuModel
+                delegate: defaultDelegate
+            }
         }
     }
+
 }
 
