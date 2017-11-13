@@ -1,6 +1,7 @@
 var module = null;
-globalRequire("windowManager");
-globalRequire("gui");
+globalRequire("WindowManager");
+globalRequire("GUI");
+globalRequire("Process");
 
 var global = {
     appInfo: "FZMobile 0.0.1-T",
@@ -8,12 +9,8 @@ var global = {
 }
 
 function start(){
-    var process = require("myProcess/process");
+    var process = new Process(null, "testProc", Qt.quit);
     process.start();
-}
-
-var Processes = {
-    MY_PROCESS: "MyProcess"
 }
 
 function showObject(obj, objName, depth){

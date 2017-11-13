@@ -4,8 +4,9 @@ module = function(model, windowManager, thisProcess){
         var documentList = model.getDocumentList();
         var window = windowManager.getDocumentListWindow(documentList);
         window.connect([
-            ["documentClicked", documentClickedHandler]
-        ])  
+            ["documentClicked", documentClickedHandler],
+            ["returnSignal", exit]
+        ])
 
         function documentClickedHandler(documentId){
             showDocumentWindow(documentId);
@@ -21,23 +22,20 @@ module = function(model, windowManager, thisProcess){
         ])
 
         function lagerClickedHandler(lagerId){
-            thisProcess.runChildProcess("test2Proc", function(data){
-                console.log("Exit data = " + data);
-                showDocumentWindow(documentId);
-            })
+            console.log("CLICKED Lager "+lagerId);
+            window.showError("Lager "+lagerId+" info not found");
         }
+
     }
 
     function exit(){
-        return "exit info";
+        thisProcess.exit("exit info");
     }
 
 
     return {
         start: function(){
             showDocumentListWindow();
-
-        },
-        exit: exit
+        }
     }
 }
