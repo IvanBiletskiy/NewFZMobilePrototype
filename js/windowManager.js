@@ -1,15 +1,8 @@
-var windowManager = (function (){
-    var managerInterface;
-    var processGui;
+var WindowManager = function (processName){
     var windowsCache = {};
     var currentWindow; //текущее отображаемое окно
-
-    
-    function setProcess(processName){
-        var processGuiFilePath = "./"+processName+"/gui"
-        processGui = require(processGuiFilePath);
-        windowManager = createInterface();
-    }
+    var processGui = require("./"+processName+"/gui");
+    return createInterface();
 
     function addToCache(window, windowName){
         windowsCache[windowName] = window;
@@ -77,7 +70,7 @@ var windowManager = (function (){
     }
 
     function createInterface(){
-        managerInterface = getDefaultInterface();
+        var managerInterface = {};
         for (var constructorName in processGui) {
             if (processGui.hasOwnProperty(constructorName)) {
                 var windowGetterName = "get"+constructorName;
@@ -107,11 +100,4 @@ var windowManager = (function (){
         }
     }
 
-    function getDefaultInterface(){
-        return {
-            setProcess: setProcess
-        };
-    }
-
-    return getDefaultInterface();
-})()
+}

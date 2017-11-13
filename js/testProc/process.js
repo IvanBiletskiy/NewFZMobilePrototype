@@ -1,7 +1,4 @@
-module = (function(){
-    console.log("in process");
-    var model = require("myProcess/model");
-    windowManager.setProcess("myProcess");
+module = function(model, windowManager, thisProcess){
 
     function showDocumentListWindow(){
         var documentList = model.getDocumentList();
@@ -29,11 +26,15 @@ module = (function(){
         }
     }
 
+    function exit(){
+        return "exit info";
+    }
 
 
     return {
         start: function(){
             showDocumentListWindow();
-        }
+        },
+        exit: exit
     }
-})();
+}
