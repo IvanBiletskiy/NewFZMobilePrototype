@@ -9,7 +9,6 @@ function Process(parent, processName, exitCallback){
     this.start = function(){
         ownProcessProperties.start();
         if (parent) {
-            // showObject(parent.windowManager, "parent.windowManager", 1)
             lastParentWindow = parent.windowManager.getCurrentWindow();
             lastParentWindow.hide();
         }

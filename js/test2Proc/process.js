@@ -22,8 +22,12 @@ module = function(model, windowManager, thisProcess){
         ])
 
         function lagerClickedHandler(lagerId){
-            console.log("CLICKED Lager "+lagerId);
-            window.showError("Lager "+lagerId+" info not found");
+            // console.log("CLICKED Lager "+lagerId);
+            // window.showError("Lager "+lagerId+" info not found");
+            thisProcess.runChildProcess("test2Proc", function(data){
+                console.log("Exit data = " + data);
+                showDocumentWindow(documentId);
+            })
         }
 
     }
