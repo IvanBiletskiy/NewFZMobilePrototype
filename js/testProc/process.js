@@ -1,14 +1,11 @@
-module = (function(){
-    console.log("in process");
-    var model = require("myProcess/model");
-    windowManager.setProcess("myProcess");
+module = function(model, windowManager, thisProcess){
 
     function showDocumentListWindow(){
         var documentList = model.getDocumentList();
         var window = windowManager.getDocumentListWindow(documentList);
         window.connect([
             ["documentClicked", documentClickedHandler]
-        ])
+        ])  
 
         function documentClickedHandler(documentId){
             showDocumentWindow(documentId);
@@ -24,16 +21,23 @@ module = (function(){
         ])
 
         function lagerClickedHandler(lagerId){
-            console.log("CLICKED Lager "+lagerId);
-            window.showError("Lager "+lagerId+" info not found");
+            thisProcess.runChildProcess("test2Proc", function(data){
+                console.log("Exit data = " + data);
+                showDocumentWindow(documentId);
+            })
         }
     }
 
+    function exit(){
+        return "exit info";
+    }
 
 
     return {
         start: function(){
             showDocumentListWindow();
-        }
+
+        },
+        exit: exit
     }
-})();
+}

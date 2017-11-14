@@ -1,15 +1,17 @@
-var windowManager = (function (){
-    var managerInterface;
-    var processGui;
+var WindowManager = function (processName){
     var windowsCache = {};
     var currentWindow; //текущее отображаемое окно
-
-    
-    function setProcess(processName){
-        var processGuiFilePath = "./"+processName+"/gui"
-        processGui = require(processGuiFilePath);
-        windowManager = createInterface();
+    var processGui = require("./"+processName+"/gui");
+    var generatedInterface = createInterface();
+    for (var key in generatedInterface) {
+        if (generatedInterface.hasOwnProperty(key)) {
+            this[key] = generatedInterface[key];
+        }
     }
+    this.getCurrentWindow = function(){
+        return currentWindow;
+    }
+    this.destroyAllWindows = destroyAllWindows;
 
     function addToCache(window, windowName){
         windowsCache[windowName] = window;
@@ -44,6 +46,7 @@ var windowManager = (function (){
 
     function createNewWindow(constructorName, params){
         console.log("creating new page "+constructorName);
+
         if (currentWindow) {
             currentWindow.hide();
         }
@@ -65,6 +68,8 @@ var windowManager = (function (){
         console.log("after addToCache, cache:");
         consoleLogCache();
 
+        // console.log("IN createNewWindow.");
+        // showObject(currentWindow, "new Window", 1)
         return currentWindow;
     }
 
@@ -77,7 +82,7 @@ var windowManager = (function (){
     }
 
     function createInterface(){
-        managerInterface = getDefaultInterface();
+        var managerInterface = {};
         for (var constructorName in processGui) {
             if (processGui.hasOwnProperty(constructorName)) {
                 var windowGetterName = "get"+constructorName;
@@ -85,6 +90,7 @@ var windowManager = (function (){
             }
         }
         managerInterface.setProcessDefaultContextMenuItems = setProcessDefaultContextMenuItems;
+        
         return managerInterface;
     }
 
@@ -107,11 +113,13 @@ var windowManager = (function (){
         }
     }
 
-    function getDefaultInterface(){
-        return {
-            setProcess: setProcess
-        };
+    function destroyAllWindows(){
+        for (var windowName in windowsCache) {
+            if (windowsCache.hasOwnProperty(windowName)) {
+                windowsCache[windowName].qml.destroy();
+                console.log(windowName + " destroyed!");               
+            }
+        }
     }
 
-    return getDefaultInterface();
-})()
+}
