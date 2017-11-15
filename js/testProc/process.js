@@ -1,4 +1,5 @@
 module = function(model, windowManager, thisProcess){
+    thisProcess.setDefaultProcessContextMenuItem("Exit to main", "ExitToMainSignal", exit);
 
     function showDocumentListWindow(){
         var documentList = model.getDocumentList();
